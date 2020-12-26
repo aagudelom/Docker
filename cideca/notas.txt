@@ -1,0 +1,10 @@
+https://docs.docker.com/compose/gettingstarted/
+
+Tomcat
+https://medium.com/@zhao.li/how-to-understand-building-images-with-docker-compose-24cbdbc0641f
+
+Postgres
+https://docs.divio.com/en/latest/reference/docker-docker-compose/
+
+secrets data db
+https://diogomonica.com/2017/03/27/why-you-shouldnt-use-env-variables-for-secret-data/

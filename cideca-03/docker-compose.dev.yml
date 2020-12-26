@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+ web:
+  build:
+   context: .
+   args:
+    HOME_FOLDER: ${HOME_FOLDER} 
+  env_file: .env
+  ports:
+   - 80:8080
+  environment:
+   - SERVER_PORT=8080
+   - NODE_ENV=production
+  volumes:
+   - .:$HOME_FOLDER
+   - node_modules:$HOME_FOLDER/node_modules
+  command: npm run
+  networks:
+      - app-network
+volumes:
+  node_modules:
+networks:
+  app-network:
+    driver: bridge
