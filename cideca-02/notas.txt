@@ -1,0 +1,14 @@
+npm init -y
+npm install ronin-server ronin-mocks
+touch server.js
+node server.js
+npm install ronin-database
+
+docker build --tag node-docker .
+docker tag node-docker:latest node-docker:v1.0.0
+docker rmi node-docker:v1.0.0
+docker run --publish 8000:8000 node-docker
+docker run -d -p 8000:8000 node-docker
+
+https://github.com/docker/compose/
+sudo docker run -it name sh
