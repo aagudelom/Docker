@@ -1,0 +1,1 @@
+mongo --host mongo --eval "db.getSiblingDB('$MONGO_DB').createUser({ user: '$MONGO_US', pwd: '$MONGO_PS', roles: [{ role: 'readWrite', db: '$MONGO_DB' }] });"

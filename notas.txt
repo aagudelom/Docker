@@ -11,6 +11,8 @@ docker run --publish 8000:8000 node-docker
 docker run -d -p 8000:8000 node-docker
 
 https://github.com/docker/compose/
-sudo docker run -it name sh
+docker exec -it <container-name> bash
 
 docker-compose -f docker-compose.dev.yml up --build
+
+docker stats my-nginx
