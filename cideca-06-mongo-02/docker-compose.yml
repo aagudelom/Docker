@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+ mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    volumes:
+      - .:$HOME_FOLDER
+      - mdb:$HOME_FOLDER/data/db
+      - mdbcfg:$HOME_FOLDER/data/configdb      
+      - mdblogs:$HOME_FOLDER/data/logs  
+    env_file: .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_ROOT_PASSWORD          
+    ports:
+      - 27017:27017
+    networks:
+      app-network:
+        aliases:
+          - "hostdb"      
+volumes:
+ mdb:
+ mdbcfg:
+ mdblogs:   
+networks:
+ app-network:
+  driver: bridge

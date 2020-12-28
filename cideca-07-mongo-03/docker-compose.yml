@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+ mongo:
+    image: mongo:latest
+    container_name: mongodb
+    volumes:
+      #- ./mongodb/data:/data/db
+      - /mongo/config/mongod.conf:/etc/mongod.conf
+      - ./mongodb/initdb.d:/docker-entrypoint-initdb.d/
+      - ./mongodb/log:/var/log/mongodb
+      - ./mongodb/db:/var/lib/mongodb
+    env_file: .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_ROOT_PASSWORD          
+    ports:
+      - 27017:27017
+    networks:
+      app-network:
+        aliases:
+          - "hostdb"      
+    command: mongod --config /etc/mongod.conf.orig
+#volumes:
+# mongodb:
+# mongodb_config:
+networks:
+ app-network:
+  driver: bridge
