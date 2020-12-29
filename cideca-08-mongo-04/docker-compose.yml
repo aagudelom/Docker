@@ -2,14 +2,14 @@ version: '3.8'
 
 services:
  mongo:
-    image: mongo:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.mongo    
     container_name: mongodb
-    volumes:
-      #- ./mongodb/data:/data/db
-      - /mongo/config/mongod.conf:/etc/mongod.conf
-      - ./mongodb/initdb.d:/docker-entrypoint-initdb.d/
-      - ./mongodb/log:/var/log/mongodb
-      - ./mongodb/db:/var/lib/mongodb
+    volumes:      
+      - mongodb:/data/db
+      - mongodb_config:/data/configdb
+      - mongodb_log:/data/log
     env_file: .env
     environment:
       - MONGO_INITDB_ROOT_USERNAME=$MONGO_ROOT_USERNAME
@@ -20,10 +20,11 @@ services:
       app-network:
         aliases:
           - "hostdb"      
-    command: mongod --config /etc/mongod.conf.orig
-#volumes:
-# mongodb:
-# mongodb_config:
+    command: mongod --config /data/configdb/mongod.conf
+volumes:
+ mongodb:
+ mongodb_config:
+ mongodb_log:
 networks:
  app-network:
   driver: bridge

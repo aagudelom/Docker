@@ -1,0 +1,9 @@
+FROM mongo:latest
+ENV MONGO_FOLDER=/data
+
+RUN mkdir -p ${MONGO_FOLDER}/log
+RUN touch ${MONGO_FOLDER}/log/mongod.log
+RUN chmod a+rw ${MONGO_FOLDER}/log/mongod.log
+RUN mkdir -p ${MONGO_FOLDER}/configdb
+ADD "mongod.conf" ${MONGO_FOLDER}/configdb 
+RUN chmod a+rw ${MONGO_FOLDER}/configdb/mongod.conf
