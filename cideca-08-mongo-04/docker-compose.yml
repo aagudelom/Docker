@@ -1,7 +1,8 @@
 version: '3.8'
 
 services:
- mongo:
+ dbcideca:
+    image: aagudelom/dbcideca:1.0.0-SNAPSHOT
     build:
       context: .
       dockerfile: Dockerfile.mongo    
@@ -20,7 +21,7 @@ services:
       app-network:
         aliases:
           - "hostdb"      
-    command: mongod --config /data/configdb/mongod.conf
+    command: ['--config', '/data/configdb/mongod.conf']
 volumes:
  mongodb:
  mongodb_config:
