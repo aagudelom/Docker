@@ -1,0 +1,13 @@
+/data/log/mongodb.log {
+    weekly
+    missingok
+    rotate 4
+    size 10M
+    compress
+    notifempty
+    create
+    postrotate
+        kill -SIGUSR1 mongod
+        rm /data/log/mongodb.log.????-??-??T??-??-??
+    endscript
+}
