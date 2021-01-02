@@ -1,0 +1,3 @@
+https://stackoverflow.com/posts/61427151/timeline
+docker-compose --compatibility up 
+docker stats

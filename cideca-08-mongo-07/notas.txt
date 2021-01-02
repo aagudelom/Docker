@@ -1,0 +1,6 @@
+https://github.com/docker-library/mongo/issues/323
+mongo admin -u "rcideca" -p "rcideca"
+https://docs.mongodb.com/manual/tutorial/enable-authentication/
+https://stackoverflow.com/posts/63621296/timeline
+db.getUsers( { usersInfo: { forAllDBs: true } } )
+https://github.com/docker-library/mongo/issues/257#issuecomment-375747688

@@ -4,3 +4,4 @@ https://stackoverflow.com/posts/56283500/timeline
 https://cloud.mongodb.com/freemonitoring/cluster/URO75E7YWNB4XTS6JJB6KASA5OHCS5W3
 docker exec -it dbcideca bash
 mongo test -u "rcideca" -p "rcideca" --authenticationDatabase "admin"
+mongo admin -u "rcideca" -p "rcideca"

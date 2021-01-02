@@ -1,0 +1,14 @@
+/data/log/mongod.log {
+    su mongodb mongodb
+    weekly
+    missingok
+    rotate 4
+    size 10M
+    compress
+    notifempty
+    create
+    postrotate
+        kill -SIGUSR1 mongod
+        rm /data/log/mongod.log.????-??-??T??-??-??
+    endscript
+}
