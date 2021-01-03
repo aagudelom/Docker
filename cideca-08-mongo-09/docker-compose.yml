@@ -1,0 +1,43 @@
+version: '3.8'
+secrets:
+   DB_PASSWORD:
+     file: db_password.txt 
+services:
+ dbcideca:
+    image: aagudelom/dbcideca:1.0.1-SNAPSHOT
+    build:
+      context: .
+      dockerfile: Dockerfile.mongo    
+    container_name: dbcideca
+    volumes:      
+      - mongodb:/data/db
+      - mongodb_config:/data/configdb
+      - mongodb_log:/data/log
+    secrets:
+       - DB_PASSWORD
+    env_file: .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/DB_PASSWORD
+      - DB_NAME=$DB_DATA_NAME
+      - DB_USER=$DB_NAME_USER
+      - MONGO_PASSWORD_FILE=/run/secrets/DB_PASSWORD
+    ports:
+      - 27017:27017
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 150M    
+    networks:
+      app-network:
+        aliases:
+          - 'hostdb'      
+    command: ['--config', '/data/configdb/mongod.conf']           
+volumes:
+ mongodb:
+ mongodb_config:
+ mongodb_log:
+networks:
+ app-network:
+  driver: bridge

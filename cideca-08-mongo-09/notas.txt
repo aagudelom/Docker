@@ -1,0 +1,12 @@
+#Cultura
+docker swarm init
+docker swarm join-token --quiet worker
+docker secret create -l env=dev -l rev=20200103 DB_PASSWORD db_password.txt 
+cat db_password.txt | docker secret create -l env=dev -l rev=20200103 DB_PASSWORD -
+echo "cideca" | docker secret create -l env=dev -l rev=20200103 DB_PASSWORD -
+docker secret ls
+docker secret inspect DB_PASSWORD
+docker secret rm DB_PASSWORD
+
+Funciona con:
+https://medium.com/@leonfeng/set-up-a-secured-mongodb-container-e895807054bd

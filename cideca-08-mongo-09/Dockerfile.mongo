@@ -1,0 +1,33 @@
+FROM mongo:latest
+ENV MONGO_FOLDER=/data
+ENV MONGO_FOLDER_LOG=/data/log
+ENV MONGO_FOLDER_CNF=/data/configdb
+ENV MONGO_FOLDER_LOGROTATE=/etc/logrotate.d
+ENV MONGO_FOLDER_HOME=/home/mongodb
+
+RUN mkdir -p ${MONGO_FOLDER_CNF}
+ADD "mongod.conf" ${MONGO_FOLDER_CNF} 
+RUN chmod a+r ${MONGO_FOLDER_CNF}/mongod.conf
+
+ADD "mongod" ${MONGO_FOLDER_LOGROTATE}
+RUN chmod 0444 ${MONGO_FOLDER_LOGROTATE}/mongod
+RUN apt-get update && apt-get -y install logrotate
+
+RUN mkdir -p ${MONGO_FOLDER_LOG}
+RUN chmod a+rw ${MONGO_FOLDER_LOG}
+RUN touch ${MONGO_FOLDER_LOG}/mongod.log
+RUN chmod a+rw ${MONGO_FOLDER_LOG}/mongod.log
+
+RUN mkdir -p ${MONGO_FOLDER_HOME}
+RUN touch ${MONGO_FOLDER_HOME}/.dbshell
+RUN chown -R mongodb:mongodb ${MONGO_FOLDER_HOME}/.dbshell
+
+
+RUN chown -R mongodb:mongodb ${MONGO_FOLDER_LOG}
+RUN chown -R mongodb:mongodb ${MONGO_FOLDER_LOG}/mongod.log
+RUN chown -R mongodb:mongodb ${MONGO_FOLDER}
+RUN chown -R mongodb:mongodb ${MONGO_FOLDER_HOME}
+
+ADD mongo-init.sh /docker-entrypoint-initdb.d
+RUN chown -R mongodb:mongodb /docker-entrypoint-initdb.d/mongo-init.sh
+
